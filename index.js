@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 const app = express();
 const { MONGODB_URI } = process.env;
-mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
+mongoose.connect(MONGODB_URI, { useUnifiedTopology: true })
+    .then(() => console.log('Database Connected Successfully'));
 app.use(express.json());
 
 
