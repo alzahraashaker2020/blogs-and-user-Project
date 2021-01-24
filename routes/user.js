@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
 
 });
 //edit function
-router.patch('/:id', async (req, res, next) => {
+router.patch('/edit/:id', async (req, res, next) => {
     const { params: { id }, body } = req;
     try {
         const user = await editone(id, body);
