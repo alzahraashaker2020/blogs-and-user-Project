@@ -70,6 +70,9 @@ const unfollowes = (id, trgetid) => User.update(
     }
 );
 
+//delete
+const removeAcc = (id) =>  User.findByIdAndDelete(id).exec();
+
 
 
 
@@ -83,5 +86,6 @@ module.exports = {
     unfollow,
     followes,
     unfollowes,
+    removeAcc,
 
 };

@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-    create, login, getAll, editone, follow,unfollow,followes,unfollowes}
+    create, login, getAll, editone, follow,unfollow,followes,unfollowes,removeAcc}
     = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
@@ -69,6 +69,15 @@ router.post('/unfollow/:fid', async (req, res, next) => {
         const userunfollowID = await unfollow(id, fid);
         const userunfollowIDes = await unfollowes(id, fid);
         res.json({userunfollowID,userunfollowIDes});
+    } catch (e) {
+        next(e);
+    }
+});
+router.delete('/remove', async (req, res, next) => {
+    const { user: { id } } = req;
+    try {
+        const users = await removeAcc(id);
+        res.send("Delete done ");
     } catch (e) {
         next(e);
     }
