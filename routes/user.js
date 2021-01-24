@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-    create, login, getAll, editone, follow,unfollow,followes,unfollowes,removeAcc}
+    create, login, getAll, editone, follow, unfollow, followes, unfollowes, removeAcc }
     = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
     }
 
 });
-//edit function//delete missed
+//edit function
 router.patch('/:id', async (req, res, next) => {
     const { params: { id }, body } = req;
     try {
@@ -51,12 +51,11 @@ router.patch('/:id', async (req, res, next) => {
 router.use(authMiddleware);
 router.post('/follow/:fid', async (req, res, next) => {
     const { params: { fid }, user: { id } } = req;
-    // debugger
     try {
 
         const userfollowID = await follow(id, fid);
         const userfollowIDes = await followes(id, fid);
-        res.json({userfollowID,userfollowIDes});
+        res.json({ userfollowID, userfollowIDes });
     } catch (e) {
         next(e);
     }
@@ -68,11 +67,12 @@ router.post('/unfollow/:fid', async (req, res, next) => {
 
         const userunfollowID = await unfollow(id, fid);
         const userunfollowIDes = await unfollowes(id, fid);
-        res.json({userunfollowID,userunfollowIDes});
+        res.json({ userunfollowID, userunfollowIDes });
     } catch (e) {
         next(e);
     }
 });
+//delete
 router.delete('/remove', async (req, res, next) => {
     const { user: { id } } = req;
     try {

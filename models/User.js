@@ -19,8 +19,6 @@ const userSchema = new Schema({
     },
     dob: Date,
     //follow
-    // followers: [{ type: Schema.ObjectId, ref: 'User' }],
-    // following: [{ type: Schema.ObjectId, ref: 'User' }],
     following: [{ type: Schema.ObjectId, ref: 'User' }],
     followers: [{ type: Schema.ObjectId, ref: 'User' }],
 
