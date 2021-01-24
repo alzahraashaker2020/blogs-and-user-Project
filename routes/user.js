@@ -27,6 +27,7 @@ router.post('/login', async (req, res, next) => {
 
 });
 //get All users
+router.use(authMiddleware);
 router.get('/', async (req, res, next) => {
     const { body } = req;
     try {
@@ -48,7 +49,6 @@ router.patch('/:id', async (req, res, next) => {
     }
 });
 //follow function
-router.use(authMiddleware);
 router.post('/follow/:fid', async (req, res, next) => {
     const { params: { fid }, user: { id } } = req;
     try {
