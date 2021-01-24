@@ -99,7 +99,7 @@ router.get('/tags/:tags', async (req, res, next) => {
     }
 });
 //delete by id
-router.get('/delete/:id', async (req, res, next) => {
+router.get('/deletes/:id', async (req, res, next) => {
     const { params: { id } } = req;
     try {
         const blog = await deleteBlog(id);
