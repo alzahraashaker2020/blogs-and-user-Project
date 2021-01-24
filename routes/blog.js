@@ -40,6 +40,19 @@ router.get('/new', async (req, res, next) => {
     }
 });
 
+//get all blog related to logined user(profile)
+router.get('/owned', async (req, res, next) => {
+    const { user: { id } } = req;
+    try {
+        const blog = await gets({ autherId: id });
+        res.json(blog);
+
+    } catch (e) {
+        next(e);
+
+    }
+});
+
 //get blog by id
 router.get('/:id', async (req, res, next) => {
     const { params: { id } } = req;
@@ -64,18 +77,7 @@ router.patch('/:id', async (req, res, next) => {
 
     }
 });
-//get all blog related to logined user
-router.get('/owned', async (req, res, next) => {
-    const { user: { id } } = req;
-    try {
-        const blog = await gets({ autherId: id });
-        res.json(blog);
 
-    } catch (e) {
-        next(e);
-
-    }
-});
 //search by title
 router.get('/title/:title', async (req, res, next) => {
     const { params: { title } } = req;
