@@ -2,6 +2,17 @@ const express = require('express');
 const { create, getAll, getById, editOne, gets, getByTitle, getByTags, deleteBlog, getBlogFoll,getByAuther,getNew } = require('../controllers/blog');
 const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
+//imgurl
+const multer=require('multer');
+const path=require('path');
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null, 'static/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
 //get all blogs
 router.get('/', async (req, res, next) => {
 
@@ -16,15 +27,30 @@ router.get('/', async (req, res, next) => {
 });
 //creat blog by logind user
 router.use(authMiddleware);
-router.post('/', async (req, res, next) => {
-    const { body, user: { id } } = req;
-    console.log(id);
-    try {
-        const blog = await create({ ...body, autherId: id });
-        res.json(blog);
-    } catch (e) {
-        next(e);
-    }
+// router.post('/', async (req, res, next) => {
+//     const { body, user: { id } } = req;
+//     console.log(id);
+//     try {
+//         const blog = await create({ ...body, autherId: id });
+//         res.json(blog);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
+router.post('/',async (req, res, next) => {
+    console.log(req.user);
+const upload = multer({ storage: storage }).single("imgurl");
+
+    upload(req,res,  function(err){
+        console.log(req.user);
+        const { body, user:{id} } = req;
+        if(req.file!=undefined)
+        body.imgurl= req.file.path;
+    
+        create({ ...body, autherId: id }).then(blog=>res.json(blog)).catch(e=>next(e));
+    
+    });
+    
 });
 //get newly blogs
 router.get('/new', async (req, res, next) => {
