@@ -10,7 +10,7 @@ const getAll = () => Blog.find({}).exec();
 //get All blogs related to logined user
 const gets = (query) => Blog.find(query).exec();
 const getById = (id) => Blog.findById(id).exec();
-const deleteBlog = (id) => Blog.findOneAndRemove(id).exec();
+const deleteBlog = (id) => Blog.findByIdAndDelete(id).exec();
 const getByTitle = ({ title }) => Blog.find({ title }).exec();
 const getByTags = ({ tags }) => Blog.find({ tags }).exec();
 const editOne = (id, body) => Blog.findByIdAndUpdate(id, body, { new: true }).exec();
