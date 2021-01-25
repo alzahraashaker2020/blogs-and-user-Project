@@ -39,7 +39,7 @@ userSchema.pre('save', function (next) {
 });
 userSchema.pre('findOneAndUpdate', function (next) {
     if (!this._update.password) {
-        return;
+        next();
     }
     this.password = bcrypt.hashSync(this.password, 8);
     next();
@@ -53,7 +53,7 @@ userSchema.methods.validatePassword = function (password) {
 //     if(this.following.indexOf(id) === -1){
 //       this.following.push(id);
 //     }
-  
+
 //     return this.save();
 //   };
 //   //unfollow
