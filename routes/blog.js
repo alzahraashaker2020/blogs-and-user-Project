@@ -2,7 +2,6 @@ const express = require('express');
 const { create, getAll, getById, editOne, gets, getByTitle, getByTags, deleteBlog, getBlogFoll,getByAuther,getNew } = require('../controllers/blog');
 const authMiddleware = require('../middlewares/auth');
 const router = express.Router();
-
 //get all blogs
 router.get('/', async (req, res, next) => {
 
